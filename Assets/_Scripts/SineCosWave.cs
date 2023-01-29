@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public sealed class SineWave : MonoBehaviour {
+public sealed class SineCosWave : MonoBehaviour {
     private const float TAU = Mathf.PI * 2;
 
     [SerializeField] private Wave waveType;

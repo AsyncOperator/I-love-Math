@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd3987ff3547744bbdc7c167873503a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveType: 0
+  waveType: 1
   radius: 5
   xAxis: {fileID: 1360139072}
   yAxis: {fileID: 1036935587}
