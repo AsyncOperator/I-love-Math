@@ -6,9 +6,13 @@ public sealed class SineCosWave : MonoBehaviour {
 
     [SerializeField] private Wave waveType;
 
-    [SerializeField] private float radius;
+    [Min( 3f ), SerializeField] private float radius;
     [SerializeField] private LineRenderer xAxis;
     [SerializeField] private LineRenderer yAxis;
+
+    [SerializeField] private TrailRenderer trail;
+
+    private float previousTimeValue;
 
     private void OnValidate() {
         yAxis.SetPosition( 0, Vector3.down * radius );
@@ -46,7 +50,9 @@ public sealed class SineCosWave : MonoBehaviour {
     }
 
     private void Update() {
-        float time = Time.time;
+        float time = Mathf.Repeat( Time.time, 1f );
+        ClearTrailIfNeeded( time );
+
         float y = waveType switch
         {
             Wave.Sine => radius * Mathf.Sin( time * TAU ),
@@ -55,16 +61,19 @@ public sealed class SineCosWave : MonoBehaviour {
 
         transform.position = new Vector3( radius * time, y, 0f );
     }
+
+    private void ClearTrailIfNeeded( float time ) {
+        if ( previousTimeValue > time )
+            trail.Clear();
+
+        previousTimeValue = time;
+    }
 }
 
 public static class ExtensionMethods {
-    public static Vector3 X( this Vector3 v, float x ) {
-        return new Vector3( x, v.y, v.z );
-    }
+    public static Vector3 X( this Vector3 v, float x ) => new Vector3( x, v.y, v.z );
 
-    public static Vector3 Y( this Vector3 v, float y ) {
-        return new Vector3( v.x, y, v.z );
-    }
+    public static Vector3 Y( this Vector3 v, float y ) => new Vector3( v.x, y, v.z );
 }
 
 public enum Wave {

@@ -11,7 +11,7 @@ public sealed class CircularMovement : MonoBehaviour {
     [SerializeField] private TextMeshPro tmp;
 
     private float x, y;
-    public float Angle {
+    public float UnsignedAngleInDegree {
         get
         {
             float signedAngle = Mathf.Atan2( y, x ) * Mathf.Rad2Deg;
@@ -24,7 +24,7 @@ public sealed class CircularMovement : MonoBehaviour {
         y = radius * Mathf.Sin( Time.time * angularSpeedInDegrees * Mathf.Deg2Rad );
 
         transform.position = new Vector3( x, y, 0f );
-        tmp.SetText( Mathf.CeilToInt( Angle ).ToString() );
+        tmp.SetText( Mathf.CeilToInt( UnsignedAngleInDegree ).ToString() );
     }
 
     private void OnDrawGizmos() {
@@ -33,7 +33,7 @@ public sealed class CircularMovement : MonoBehaviour {
         Handles.DrawDottedLine( default, Vector3.right * radius, screenSpaceSize: 3f ); // Draw x axis with dotted line
         Handles.DrawAAPolyLine( width: 2f, Vector3.zero, new Vector3( x, y, 0f ) ); // Vector from center to sphere itself
         Handles.color = new Color( 1, 1, 1, 0.1f );
-        Handles.DrawSolidArc( default, Vector3.forward, Vector3.right, Mathf.Abs( Angle ), radius * 0.2f );
+        Handles.DrawSolidArc( default, Vector3.forward, Vector3.right, Mathf.Abs( UnsignedAngleInDegree ), radius * 0.2f );
 #endif
     }
 }

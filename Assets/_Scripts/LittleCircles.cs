@@ -9,9 +9,7 @@ public sealed class LittleCircles : MonoBehaviour {
 
     private float angleOffsetInRadians;
 
-    private void Start() {
-        angleOffsetInRadians = TAU / targets.Length;
-    }
+    private void Start() => angleOffsetInRadians = TAU / targets.Length;
 
     private void Update() {
         for ( int i = 0 ; i < targets.Length ; i++ ) {
